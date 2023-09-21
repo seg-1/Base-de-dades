@@ -1,0 +1,86 @@
+- Exercici 1
+
+A partir dels documents adjunts (estructura i dades), crea una base de dades amb MySQL. Mostra les característiques principals de l'esquema creat i explica les diferents taules i variables que hi ha.
+
+
+Claus primàries.
+
+Les variables genere_id, movie_id, role_id, person_id son claus primàries amb el tipus de dada numero enter.
+La taula tb_movie_person utilitza tres claus foranes (movie_id, person_id, role_id) per a poder tenir una clau primària.
+
+
+Taules:
+
+	En totes les taules hi ha les següents variables:
+
+	created_by_user: quin usuari ha creat l'entrada.
+	created_date: quan es va crear l'entrada.
+	updated_date: quan es va actualitzar l'entrada.
+
+	Tenim les taules:
+
+	tb_genere: tenim apuntats els noms dels generes i la id del gènere.
+	tb_movie: tenim els noms, data d'estrena, format de la pel·lícula, id del gènere i id de la pel·lícula.
+	tb_role: estan els noms dels rols i les id del rol.
+	tb_person: tenim apuntats el nom de la persona, la nacionalitat, data de naixement, data de defuncio, la id del pare o mare si esta en la bbdd i la id de la persona.
+	tb_movie_person: estan apuntats les id de les pel·lícules, les id de les persones, les id dels rols i si la pel·lícules ha sigut premiada.
+	
+	
+Relacions de les taules de la bbdd.
+
+	tb_genere la variable genere_id es relaciona amb la taula tb_movie utilitzant la variable movie_genere_id. Relació 1:n.
+	tb_movie la variable movie_id es relaciona amb la taula tb_movie_person utilitzant la variable movie_id, aquesta ultima es una clau forana. Relació 1:n.
+	tb_role la variable role_id es relaciona amb la taula tb_movie_person utilitzant la variable role_id, aquesta ultima es una clau forana. Relació 1:n.
+	tb_person la variable person_id es relaciona amb la taula tb_movie_person utilitzant la variable person_id, aquesta ultima es una clau forana. Relació 1:n.
+	A la taula tb_person la clau primària person_id es relaciona amb la variable person_parent_id, d'aquesta manera podem indicar si la persona es fill d'una altra persona que ja hi es en la bbdd. Relació 1:n.
+
+
+Aquí repasso totes les taules i cadascuna de les variables que tenen.
+
+	tb_genere:
+	  genere_id: id del gènere de pel·lícula, tipus numero enter, no pot ser null, clau primària.
+	  genere_name:  nom del gènere de pel·lícula, tipus string fins a 40, no pot ser null.
+	  created_by_user:  nom del usuari que ha creat l’entrada, tipus string fins a 10 caràcters, si no s’indica res serà ‘OS_SGAD’, no pot ser null.
+	  created_date: data de la creació de la entrada, tipus date.
+	  updated_date: data d’actualització de la dada, tipus date.
+
+
+	tb_movie:
+	  movie_id: id de la pel·lícula, tipus numero enter, no pot ser null , clau primària.
+	  movie_title: títol de la pel·lícula, tipus string fins a 100 caràcters, no pot ser null.
+	  movie_date: data d’estrena de la pel·lícula, tipus date.
+	  movie_format: format de la pel·lícula, tipus string fins 50 caràcters.
+	  movie_genere_id: id del gènere al que pertany, tipus numero enter, clau forana que fa referencia a genere_id en la taula tb_genere.
+	  created_by_user:  nom del usuari que ha creat l’entrada, tipus string fins a 10 caràcters, si no s’indica res serà ‘OS_SGAD’, no pot ser null.
+	  created_date: data de la creació de la entrada, tipus date.
+	  updated_date: data d’actualització de la dada, tipus date.
+
+
+	tb_role:
+	  role_id: id del rol a realitzar en la pel·lícula, tipus de dada numero enter, no pot ser null , clau primària.
+	  role_name: nom del rol a realitzar en la pel·lícula, tipus string de fins 60 caràcters, no pot ser null.
+	  created_by_user:  nom del usuari que ha creat l’entrada, tipus string fins a 10 caràcters, si no s’indica res serà ‘OS_SGAD’, no pot ser null.
+	  created_date: data de la creació de la entrada, tipus date.
+	  updated_date: data d’actualització de la dada, tipus date.
+
+
+	tb_person:
+	  person_id: id de la persona que participa en la pel·lícula, tipus numero enter, no pot ser null, clau primària.
+	  person_name: nom de la persona, tipus string de fins 100 caràcters, no pot ser null.
+	  person_country: nacionalitat de la persona, tipus string de fins 40 caràcters.
+	  person_dob: data de naixement de la persona, tipus date, no pot ser null.
+	  person_dod: data de la mort de la persona, tipus date.
+	  person_parent_id: id del pare o mare de la persona, tipus numero enter, fa referencia a la person_id del pare o mare en cas de que estigui en la base de dades.
+	  created_by_user:  nom del usuari que ha creat l’entrada, tipus string fins a 10 caràcters, si no s’indica res serà ‘OS_SGAD’, no pot ser null.
+	  created_date: data de la creació de la entrada, tipus date.
+	  updated_date: data d’actualització de la dada, tipus date.
+
+
+	tb_movie_person:
+	  movie_id: id de la pel·lícula, tipus numero enter, no pot ser null , clau forana, fa referencia a la taula tb_movie. Forma clau primària amb person_id i role_id.
+	  person_id: id de la persona que participa en la pel·lícula, tipus numero enter, no pot ser null, clau forana, fa referencia a la taula tb_person. Forma clau primària amb movie_id i role_id.
+	  role_id: id del rol a realitzar en la pel·lícula, tipus de dada numero enter, no pot ser null , clau forana, fa referencia a la taula tb_role. Forma clau primària amb person_id i movie_id.
+	  movie_award_ind: indica si la pelicula ha estat premiada, tipus caràcter nomes un caràcter, no pot ser null.
+	  created_by_user:  nom del usuari que ha creat l’entrada, tipus string fins a 10 caràcters, si no s’indica res serà ‘OS_SGAD’, no pot ser null.
+	  created_date: data de la creació de la entrada, tipus date.
+	  updated_date: data d’actualització de la dada, tipus date.
